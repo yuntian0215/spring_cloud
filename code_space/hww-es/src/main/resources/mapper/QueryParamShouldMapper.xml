@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hww.es.mapper.QueryParamShouldMapper" >
+
+	<resultMap id="BaseResultMap" type="EsNewsQueryParamShould" >
+	    <id column="id" property="id" />
+	    <result column="min_match" property="minMatch" />
+	    <result column="news_query_param_id" property="newsQueryParamId" />
+	    <result column="shoulds" property="shoulds" />
+	    <result column="company_id" property="companyId" />
+	</resultMap>
+  
+	<insert id="insert" parameterType="EsNewsQueryParamShould" >
+		insert into es_news_query_param_should (
+			min_match, 
+			news_query_param_id, 
+			company_id, 
+			shoulds)
+    	values (
+    		#{minMatch}, 
+    		#{newsQueryParamId}, 
+      		#{companyId}, 
+      		#{shoulds})
+	</insert>
+
+	<delete id="deleteByQueryParamId" parameterType="Long">
+		delete from es_news_query_param_should where news_query_param_id = #{id}
+	</delete>
+	
+
+	<select id="selectById" parameterType="Long" resultMap="BaseResultMap">
+		select
+			id,
+			min_match, 
+			news_query_param_id, 
+			company_id, 
+			shoulds
+		from
+			es_news_query_param_should where id =#{id}
+	</select>
+
+
+</mapper>

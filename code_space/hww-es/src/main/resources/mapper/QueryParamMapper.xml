@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hww.es.mapper.QueryParamMapper" >
+
+	<resultMap id="BaseResultMap" type="com.hww.es.pojo.es.EsNewsQueryParam" >
+		<id column="id" property="id" />
+		<result column="must" property="must"  />
+	    <result column="must_not" property="mustNot"  />
+	    <result column="dateRange" property="dateRange"  />
+	    <result column="searchRange" property="searchRange"  />
+	    <result column="attributes" property="attributes"  />
+	    <result column="end_date" property="endDate"  />
+	    <result column="start_date" property="startDate"  />
+	    <result column="title" property="title" /> 
+	    <collection property="shouldsList" ofType="com.hww.es.pojo.es.EsNewsQueryParamShould" >
+			<result column="shoulds" property="shoulds"/>
+			<result column="min_match" property="minMatch"/>
+		</collection> 
+	   <collection property="webTypeList" ofType="WebType">
+			<result column="web_type_id" property="id"/>
+			<result column="web_type_title" property="title"/>
+		</collection>
+	</resultMap>
+	
+
+  
+	<insert id="insert" parameterType="EsNewsQueryParam" >
+		<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+			select LAST_INSERT_ID()
+		</selectKey> 
+		insert into es_news_query_param (
+			company_id, 
+			attributes, 
+      		start_date,
+      		end_date, 
+      		title, 
+      		dateRange, 
+      		searchRange,
+     		must,
+     		must_not)
+		values ( 
+			#{companyId}, 
+      		#{attributes}, 
+      		#{startDate}, 
+      		#{endDate}, 
+      		#{title}, 
+      		#{dateRange}, 
+      		#{searchRange}, 
+      		#{must}, 
+      		#{mustNot})
+	</insert>
+
+	<insert id="insertWebType" parameterType="Map">
+		insert into 
+			es_news_query_param_m_web_type (
+			web_type_id,
+			query_param_id
+			)
+		values(
+			#{webTypeId},#{paramId}
+			)
+	</insert>
+	
+	<delete id="delete" parameterType="Long">
+		delete from es_news_query_param where id = #{id}
+	</delete>
+	
+	<delete id="deleteWebTypeByWebTypeId" parameterType="Long">
+		delete from es_news_query_param_m_web_type where web_type_id = #{id}
+	</delete>
+	<delete id="deleteQueryWebTypeByWebTypeId" parameterType="Long">
+		delete from es_news_query_param_m_web_type where query_param_id = #{id}
+	</delete>
+
+	<select id="selectById" parameterType="Long" resultMap="BaseResultMap">
+		select 
+			es_news_query_param.id,
+			es_news_query_param.title,
+			es_news_query_param.must,
+			es_news_query_param.must_not,
+			es_news_query_param.dateRange,
+			es_news_query_param.searchRange,
+			es_news_query_param.attributes,
+			es_news_query_param.end_date,
+			es_news_query_param.start_date,
+			es_news_query_param_should.shoulds,
+			es_news_query_param_should.min_match,
+			web_type.title as web_type_title,
+			web_type.id as web_type_id
+		from
+			es_news_query_param
+		left JOIN
+			es_news_query_param_should  on es_news_query_param.id = es_news_query_param_should.news_query_param_id
+		INNER JOIN
+			es_news_query_param_m_web_type on es_news_query_param.id = es_news_query_param_m_web_type.query_param_id
+		left JOIN
+			web_type on es_news_query_param_m_web_type.web_type_id = web_type.id
+		where 
+			es_news_query_param.id=#{id}
+	</select>
+
+
+	<select id="selectListByCompanyId" parameterType="Long" resultMap="BaseResultMap">
+		select
+			id,
+      		title
+		from
+			es_news_query_param 
+		where 
+			es_news_query_param.company_id =#{companyId}
+		order by id desc
+	</select>
+
+	<update id="update" parameterType="EsNewsQueryParam">
+		update 
+			es_news_query_param 
+		set
+			title= #{title},
+			must = #{must},
+			must_not = #{mustNot},
+			dateRange = #{dateRange},
+			searchRange = #{searchRange},
+			attributes = #{attributes},
+			end_date = #{endDate},
+			start_date = #{startDate}
+		where
+			id =#{id}
+	</update> 
+</mapper>

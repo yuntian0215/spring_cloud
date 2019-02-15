@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hww.es.mapper.WarningTaskMapper" >
+
+	<resultMap id="BaseResultMap" type="WarningTask" >
+		<id column="id" property="id" />
+		<result column="must" property="must"  />
+	    <result column="must_not" property="mustNot"  />
+	    <result column="dateRange" property="dateRange"  />
+	    <result column="searchRange" property="searchRange"  />
+	    <result column="attributes" property="attributes"  />
+	    <result column="status" property="status" /> 
+	    <result column="title" property="title" /> 
+	    <result column="mail" property="mail" /> 
+	    <result column="sms" property="sms" /> 
+	    <result column="wechat" property="wechat" /> 
+	    <result column="night_off" property="nightOff" /> 
+	    <collection property="shouldsList" ofType="WarningTaskShould" >
+			<result column="shoulds" property="shoulds"/>
+			<result column="min_match" property="minMatch"/>
+		</collection> 
+	   <collection property="webTypeList" ofType="WebType">
+			<result column="web_type_id" property="id"/>
+			<result column="web_type_title" property="title"/>
+		</collection>
+		<collection property="webTypeIdList" ofType="Long">
+			<constructor>
+				<arg column="web_type_id" />
+			</constructor>
+		</collection>
+		<collection property="userIdList" ofType="Long">
+			<constructor>
+				<arg column="user_id" />
+			</constructor>
+		</collection>
+		 <collection property="userList" ofType="UcenterUser">
+			<result column="user_id" property="id"/>
+			<result column="user_name" property="userName"/>
+		</collection>
+	</resultMap>
+	
+
+  
+	<insert id="insert" parameterType="WarningTask" >
+		<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+			select LAST_INSERT_ID()
+		</selectKey> 
+		insert into warning_task (
+			company_id, 
+			attributes, 
+      		title, 
+      		searchRange,
+     		must,
+     		must_not,
+     		dateRange,
+     		mail,
+     		sms,
+     		wechat,
+     		night_off,
+     		status
+     		)
+		values ( 
+			#{companyId}, 
+      		#{attributes}, 
+      		#{title}, 
+      		#{searchRange}, 
+      		#{must}, 
+      		#{mustNot},
+      		#{dateRange},
+      		#{mail}, 
+      		#{sms}, 
+      		#{wechat},
+      		#{nightOff},
+     		#{status}
+      		)
+	</insert>
+	
+	
+	<insert id="insertWebType" parameterType="Map">
+		insert into warning_task_m_web_type(
+			web_type_id,
+			warning_task_id
+		)
+		values ( 
+			#{webTypeId}, 
+			#{taskId}
+      		)
+	</insert>
+	
+	<insert id="insertUser" parameterType="Map">
+		insert into warning_task_m_user(
+			user_id,
+			warning_task_id,
+			company_id
+		)
+		values ( 
+			#{userId}, 
+			#{taskId},
+			#{companyId}
+      		)
+	</insert>
+	
+	<delete id="delete">
+		delete from warning_task where id = #{id}
+	</delete>
+	
+	<delete id="deleteWebType">
+		delete from warning_task_m_web_type where warning_task_id = #{id}
+	</delete>
+	
+	<delete id="deleteUser" parameterType="Long">
+		delete from warning_task_m_user where warning_task_id = #{id}
+	</delete>
+	
+	<select id="selectListByCompanyId" parameterType="Long" resultType="WarningTask">
+		select id,title,dateRange,`status` from warning_task where company_id = #{companyId} order by id desc
+	</select>
+	
+	<select id="selectById" parameterType="Long" resultMap="BaseResultMap">
+		SELECT
+			warning_task.id,
+			warning_task.must,
+			warning_task.must_not,
+			warning_task.dateRange,
+			warning_task.searchRange,
+			warning_task.attributes,
+			warning_task.`status`,
+			warning_task.title,
+			warning_task.mail,
+			warning_task.sms,
+			warning_task.wechat,
+			warning_task.night_off,
+			warning_task_should.shoulds,
+			warning_task_should.min_match,
+			web_type.title AS web_type_title,
+			web_type.id AS web_type_id,
+			warning_task_m_user.user_id,
+			ucenter_user.user_name
+		FROM
+			warning_task
+			LEFT JOIN warning_task_should ON warning_task.id = warning_task_should.warning_task_id
+			LEFT JOIN warning_task_m_web_type ON warning_task.id = warning_task_m_web_type.warning_task_id
+			LEFT JOIN web_type ON warning_task_m_web_type.web_type_id = web_type.id
+			LEFT JOIN warning_task_m_user ON warning_task.id = warning_task_m_user.warning_task_id 
+			left join ucenter_user on warning_task_m_user.user_id = ucenter_user.id
+		WHERE
+			warning_task.id = #{id}
+	</select>
+	
+	<update id="update" parameterType="WarningTask">
+		update
+			warning_task 
+		set 
+            `status` = #{status},
+            attributes = #{attributes}, 
+      		title = #{title}, 
+      		searchRange = #{searchRange},
+     		must = #{must},
+     		must_not = #{mustNot},
+     		mail = #{mail},
+     		sms = #{sms},
+     		wechat = #{wechat},
+     		night_off = #{nightOff},
+     		dateRange = #{dateRange}
+        where 
+        	id = #{id}
+	</update>
+		<update id="changeStatus" parameterType="WarningTask">
+		update
+			warning_task 
+		set 
+            `status` = #{status}
+        where 
+        	id = #{id}
+	</update>
+	<delete id="deleteWarningWebTypeByWebTypeId" parameterType="Long">
+		delete from warning_task_m_web_type where web_type_id = #{webTypeId}
+	</delete>
+</mapper>

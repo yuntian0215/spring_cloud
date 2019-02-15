@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hww.es.mapper.WordGroupMapper" >
+
+  	<resultMap id="BaseResultMap" type="WordGroup" >
+	    <id column="id" property="id" />
+	    <result column="company_id" property="companyId" />
+	    <result column="title" property="title" />
+	    <result column="word" property="word" />
+	</resultMap>  
+  
+	
+	<select id="selectById" parameterType="long" resultMap="BaseResultMap">
+		select 
+			company_id, title,word
+		from 
+			word_group 
+		where 
+			id = #{id}
+	</select>
+	
+	<delete id="delete" parameterType= "Long">
+		delete from word_group where id = #{id}
+	</delete>
+	
+	<insert id="insert" parameterType= "WordGroup">
+		<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+			select LAST_INSERT_ID()
+		</selectKey> 
+		insert into word_group (
+			company_id, 
+			title,
+			word
+			)
+		values ( 
+			#{companyId}, 
+      		#{title},
+      		#{word}
+      		)
+	</insert>
+
+	<update id="update" parameterType= "WordGroup" >
+		update 
+			word_group 
+		set
+			title = #{title},
+			word = #{word}
+		where
+			id = #{id}
+		
+	</update>
+	
+	<select id="selectListByCompanyId" parameterType= "Long" resultMap="BaseResultMap">
+		select
+			id,
+			title,
+			word
+		from
+			word_group 
+		where
+			company_id = #{companyId}
+			
+		
+	</select>
+	
+</mapper>

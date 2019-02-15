@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hww.es.mapper.WarningTaskShouldMapper" >
+
+	<resultMap id="BaseResultMap" type="WarningTaskShould" >
+	    <id column="id" property="id" />
+	    <result column="min_match" property="minMatch" />
+	    <result column="warning_task_id" property="warningTaskId" />
+	    <result column="shoulds" property="shoulds" />
+	    <result column="company_id" property="companyId" />
+	</resultMap>
+  
+	<insert id="insert" parameterType="EsNewsQueryParamShould" >
+		insert into warning_task_should (
+			min_match, 
+			warning_task_id, 
+			company_id, 
+			shoulds)
+    	values (
+    		#{minMatch}, 
+    		#{warningTaskId}, 
+      		#{companyId}, 
+      		#{shoulds})
+	</insert>
+
+	<delete id="deleteByTaskId" parameterType="Long">
+		delete from warning_task_should where warning_task_id = #{id}
+	</delete>
+
+
+</mapper>

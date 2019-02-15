@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hww.es.mapper.WebSourceMapper" >
+
+  	<resultMap id="BaseResultMap" type="WebSource" >
+	    <id column="source_id" property="sourceId" />
+	    <result column="full_name" property="fullName" />
+	     <result column="source_num" property="sourceName" />
+	    <result column="home_page" property="homePage" />
+	    <result column="icon" property="logo" />
+	    <result column="language" property="language" />
+	    <result column="country" property="country" />
+	    <result column="continent" property="continent" />
+	    <result column="province" property="province" />
+	    <result column="site_type" property="mediaType" />
+	</resultMap>  
+  
+	
+	<select id="selectById" parameterType="long" resultMap="BaseResultMap">
+		select 
+			source_id, full_name,home_page,icon,site_type,language,country,continent
+		from 
+			web_source 
+		where 
+			source_id = #{sourceId}
+	</select>
+	
+	<select id="selectList" parameterType="WebSource" resultMap="BaseResultMap">
+		select 
+			source_id, full_name,home_page,icon
+		from 
+			web_source 
+		<where>
+			 <if test="language != null">
+			 	and language = #{language}
+			 </if>
+			 <if test="country != null">
+				 and country = #{country}
+			 </if>
+			 <if test="continent != null">
+				 and continent = #{continent}
+			 </if>
+		</where> 
+	</select>
+	<select id="selectListByTypeId" parameterType="Long" resultMap="BaseResultMap">
+		select 
+			web_source.source_id, 
+			web_source.full_name,
+			web_source.home_page,
+			web_source.icon
+		from 
+			web_source_m_type inner join web_source on web_source.source_id = web_source_m_type.source_id
+			where 
+			web_source_m_type.type_id = #{typeId}
+	</select>
+
+	<select id="getList" parameterType="Long" resultMap="BaseResultMap">
+		select 
+			source_id, 
+			full_name,
+			home_page,
+			icon,
+			language,
+			country,
+			continent,
+			province,
+			site_type
+		from 
+			web_source
+			
+	</select>
+	
+	<select id="selectSourceIdListByTypeIdList" resultType="String" parameterType="List">
+		select distinct source_id from web_source_m_type where type_id in 
+		<foreach collection="list" open=" (" separator="," close=")" item="item"  >
+    		#{item}
+    	</foreach>
+	</select>
+
+	<select id="selectFullNameById" resultType="String" parameterType="Long">
+		select 
+			 full_name
+		from 
+			web_source 
+		where 
+			source_id = #{sourceId}
+	</select>
+	
+	<insert id="insert" parameterType= "WebSource">
+		<selectKey keyProperty="sourceId" order="AFTER" resultType="java.lang.Long">
+			select LAST_INSERT_ID()
+		</selectKey> 
+		insert into web_source (
+			full_name, 
+			source_num,
+			home_page,
+			language,
+			continent,
+			country,
+			site_type,
+			icon
+			)
+		values ( 
+			#{fullName}, 
+			#{sourceName}, 
+      		#{homePage},
+      		#{language},
+      		#{continent},
+      		#{country},
+      		#{mediaType},
+      		#{logo}
+      		)
+	</insert>
+
+	
+
+</mapper>
