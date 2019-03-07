@@ -1,1 +1,3 @@
 1，微服务架构搭建
+2,spring-application1和spring-application2是业务服务
+3，spring-eureka-server是eureka服务端
