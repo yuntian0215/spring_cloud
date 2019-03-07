@@ -1,6 +1,7 @@
 package com.yuntian.service;
 
-import com.yuntian.pojo.Order;
+
+import com.yuntian.Order;
 
 /**
  * Package: com.yuntian.controller.service

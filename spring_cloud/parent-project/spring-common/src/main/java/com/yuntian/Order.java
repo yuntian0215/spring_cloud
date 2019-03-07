@@ -1,4 +1,4 @@
-package com.yuntian.pojo;
+package com.yuntian;
 
 /**
  * <p>内容</p>

@@ -1,6 +1,6 @@
 package com.yuntian.controller;
 
-import com.yuntian.pojo.Order;
+import com.yuntian.Order;
 import com.yuntian.service.ITestService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;

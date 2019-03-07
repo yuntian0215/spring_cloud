@@ -1,6 +1,6 @@
 package com.yuntian.service.impl;
 
-import com.yuntian.pojo.Order;
+import com.yuntian.Order;
 import com.yuntian.service.ITestService;
 import org.springframework.stereotype.Service;
 
