@@ -12,6 +12,7 @@
     <artifactId>spring-application1</artifactId>
 
     <dependencies>
+        <!-- eureka客户端-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-eureka</artifactId>

@@ -23,9 +23,18 @@ public class OrderConsumerController {
     private String ORDER_URL;
     @Resource
     private RestTemplate restTemplate;
+
+    /***
+    *@Description 和别的服务通信
+    *@Param [id]
+    *@Return com.yuntian.pojo.Order
+    *@Author lvjie
+    *@Date 2019/3/7/0007 15:36
+    */
     @RequestMapping("/getOrder/{id}")
     @ResponseBody
     public Order getOrder(@PathVariable Integer id){
         return restTemplate.getForObject(ORDER_URL+"/test/getOrder/1",Order.class);
     }
+
 }
