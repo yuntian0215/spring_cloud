@@ -6,3 +6,5 @@ spring cloud技术集合
 1，spring cloud微服务分布式架构搭建，公共类的引用等
 2，spring cloud服务之间通信
 3，eureka服务注册
+4,spring-eureka-server为eureka客户端；spring-application1和spring-applicaton2集成了eureka服务端
+5,spring-application1集成了mybatis
