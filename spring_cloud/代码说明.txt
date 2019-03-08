@@ -1,4 +1,5 @@
-1，微服务架构搭建
-2,spring-application1和spring-application2是业务服务
-3，spring-eureka-server是eureka服务端
-4，spring-common是存放公共类、pojo的地方
+1,微服务架构搭建
+2,spring-application1和spring-application2是业务服务，集成了eureka服务端;所有运行spring-application1和spring-application2之前需要先运行spring-eureka-server
+3,spring-eureka-server是eureka服务端
+4,spring-common是存放公共类、pojo的地方
+5,spring-application1集成了mybatis和PageHelper分页插件
