@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.yuntian.User;
 import com.yuntian.service.ITestMybatisService;
+import com.yuntian.utils.R;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,10 +30,10 @@ public class TestMybatisController {
     *@Date 2019/3/8/0008 10:57
     */
     @RequestMapping("/findPageList")
-    public PageInfo findPageList(Integer pageNum,Integer pageSize){
+    public R findPageList(Integer pageNum, Integer pageSize){
         PageHelper.startPage(pageNum,pageSize);
         List<User> list = mybatisService.selectList();
         PageInfo pageInfo = new PageInfo(list);
-        return pageInfo;
+        return R.ok().put("data",pageInfo);
     }
 }
