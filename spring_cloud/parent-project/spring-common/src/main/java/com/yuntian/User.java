@@ -1,8 +1,9 @@
 package com.yuntian;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class User {
+public class User implements Serializable {
     private Integer uid;
 
     private String username;
@@ -10,6 +11,8 @@ public class User {
     private String password;
 
     private Date createDate;
+
+    private Integer state;
 
     public Integer getUid() {
         return uid;
@@ -41,5 +44,13 @@ public class User {
 
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
+    }
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
     }
 }
