@@ -40,6 +40,7 @@ public class MyShiroRealm extends AuthorizingRealm {
         // 权限信息对象info,用来存放查出的用户的所有的角色（role）及权限（Resources）
         Object principal = principals.getPrimaryPrincipal();
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+        //如果只做登陆认证的话，if下面所有逻辑可以去掉
         if (principal instanceof User) {
             User userLogin = (User) principal;
             if(userLogin != null){
