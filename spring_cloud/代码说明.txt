@@ -3,3 +3,4 @@
 3,spring-eureka-server是eureka服务端
 4,spring-common是存放公共类、pojo的地方
 5,spring-application1集成了mybatis和PageHelper分页插件
+6,spring-shiro集成了权限控制插件shiro,并实现了登陆的权限拦截；session使用Redis来存储
