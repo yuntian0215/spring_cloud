@@ -8,3 +8,4 @@ spring cloud技术集合
 3，eureka服务注册
 4,spring-eureka-server为eureka客户端；spring-application1和spring-applicaton2集成了eureka服务端
 5,spring-application1集成了mybatis
+6,spring-shiro集成了权限控制插件shiro,并实现了登陆的权限拦截；session使用Redis来存储
