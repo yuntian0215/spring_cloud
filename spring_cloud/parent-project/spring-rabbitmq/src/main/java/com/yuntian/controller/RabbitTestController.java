@@ -1,6 +1,8 @@
 package com.yuntian.controller;
 
+import com.yuntian.fanout.FanoutSender;
 import com.yuntian.hello.HelloSender1;
+import com.yuntian.topic.TopicSender;
 import com.yuntian.user.UserSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +21,10 @@ public class RabbitTestController {
     private HelloSender1 helloSender1;
     @Autowired
     private UserSender userSender;
+    @Autowired
+    private TopicSender topicSender;
+    @Autowired
+    private FanoutSender fanoutSender;
     //单生产者单消费者
     @RequestMapping("/hello")
     public void hello(){
@@ -37,5 +43,25 @@ public class RabbitTestController {
     public String userTest(){
         userSender.send();
         return "访问成功！";
+    }
+    /**
+     * topic exchange类型rabbitmq测试
+     * 结果可知：sender1发送的消息,routing_key是“topic.message”，所以exchange里面的绑定的binding_key是“topic.message”，topic.＃都符合路由规则;所以sender1
+     * 发送的消息，两个队列都能接收到；
+     *
+     * sender2发送的消息，routing_key是“topic.messages”，所以exchange里面的绑定的binding_key只有topic.＃都符合路由规则;所以sender2发送的消息只有队列
+     * topic.messages能收到。
+     */
+    @RequestMapping("/topicTest")
+    public void topicTest() {
+        topicSender.send();
+    }
+    /**
+     * fanout exchange类型rabbitmq测试
+     * 结果可知：就算fanoutSender发送消息的时候，指定了routing_key为"abcd.ee"，但是所有接收者都接受到了消息
+     */
+    @RequestMapping("/fanoutTest")
+    public void fanoutTest() {
+        fanoutSender.send();
     }
 }
