@@ -1,5 +1,6 @@
 package com.yuntian.controller;
 
+import com.yuntian.callback.CallBackSender;
 import com.yuntian.fanout.FanoutSender;
 import com.yuntian.hello.HelloSender1;
 import com.yuntian.topic.TopicSender;
@@ -25,6 +26,8 @@ public class RabbitTestController {
     private TopicSender topicSender;
     @Autowired
     private FanoutSender fanoutSender;
+    @Autowired
+    private CallBackSender callBackSender;
     //单生产者单消费者
     @RequestMapping("/hello")
     public void hello(){
@@ -63,5 +66,11 @@ public class RabbitTestController {
     @RequestMapping("/fanoutTest")
     public void fanoutTest() {
         fanoutSender.send();
+    }
+    //测试消息回调
+    //消费者：topicMessagesReceiver
+    @RequestMapping("/callback")
+    public void callbak() {
+        callBackSender.send();
     }
 }
