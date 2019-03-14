@@ -12,3 +12,4 @@ spring cloud技术集合
 7,spring-rabbitmq集成rabbitmq;hello包实现单生产者单消费者，单生产者多消费者；user包实现实体类传输；
 	topic包实现的是交换机绑定binding_key进行绑定匹配传输；fanout包实现的交换机指定routing_key传输；
 	callback包+config/RabbitConfig+topic/topicMessagesReceiver实现消息发送回调
+8,spring-elasticsearch集成独立的elasticsearch集群，只是简单的实现查询，其他条件查询继续...
