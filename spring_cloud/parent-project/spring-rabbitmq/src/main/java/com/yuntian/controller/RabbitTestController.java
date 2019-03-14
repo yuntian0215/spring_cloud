@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * <p>内容</p>
+ * <p>RabbitMq消息发送测试</p>
  * 2019/3/12/0012 15:25
  *
  * @author lvjie
