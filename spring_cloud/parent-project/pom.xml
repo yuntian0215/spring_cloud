@@ -23,6 +23,7 @@
 		<module>spring-common</module>
 		<module>spring-shiro</module>
         <module>spring-rabbitmq</module>
+        <module>spring-elasticsearch</module>
     </modules>
 
 	<properties>
