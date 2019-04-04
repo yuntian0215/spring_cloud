@@ -1,6 +1,7 @@
 package com.yuntian.utils;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.security.MessageDigest;
 import java.util.Arrays;
@@ -9,9 +10,14 @@ import java.util.Arrays;
  * 2019年4月3日下午2:45:28
  * @author lvjie
  */
+@Component
 public class CheckUtil {
 
-	public static String token="yuntian";//开发者自定义token
+	public static String token;//开发者自定义token
+	@Value("${weixin.token}")
+	public void setToken(String token) {
+		CheckUtil.token = token;
+	}
 	public static boolean checkSignature(String signature,String timestamp,String nonce){
 		//定义数组存放 token,timestamp,nonce
 		String[] arr = {token,timestamp,nonce};
