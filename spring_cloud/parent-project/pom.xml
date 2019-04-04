@@ -24,7 +24,8 @@
 		<module>spring-shiro</module>
         <module>spring-rabbitmq</module>
         <module>spring-elasticsearch</module>
-    </modules>
+		<module>spring-weixin</module>
+	</modules>
 
 	<properties>
 		<java.version>1.8</java.version>
