@@ -10,8 +10,8 @@ import java.util.Arrays;
  * @author lvjie
  */
 public class CheckUtil {
-	@Value("${weixin.token}")
-	public static String token;//开发者自定义token
+
+	public static String token="yuntian";//开发者自定义token
 	public static boolean checkSignature(String signature,String timestamp,String nonce){
 		//定义数组存放 token,timestamp,nonce
 		String[] arr = {token,timestamp,nonce};
