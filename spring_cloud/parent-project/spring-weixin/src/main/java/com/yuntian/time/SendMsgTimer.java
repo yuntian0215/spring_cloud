@@ -3,6 +3,7 @@ package com.yuntian.time;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -18,8 +19,10 @@ import com.yuntian.utils.msgtemp.TemplateParam;
  */
 @Component
 public class SendMsgTimer {
-	String appID = "wx9a4adf39803ba67e";
-	String appsecret = "bd916329727e6e595792897e90746067";
+	@Value("${weixin.appid}")
+	private String appID;
+	@Value("${weixin.appsecret}")
+	private String appsecret;
 	/**
 	 * cron = "0 0/1 * * * *" 每分钟执行一次
 	 * cron = "0 0 0/1 * * *" 每小时执行一次
