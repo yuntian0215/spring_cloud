@@ -31,5 +31,15 @@
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
     </dependencies>
-
+    <build>
+        <!-- 确定打包的jar名称 -->
+        <finalName>spring-weixin</finalName>
+        <plugins>
+            <!-- 填充打包jar的主清单属性 -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 </project>
