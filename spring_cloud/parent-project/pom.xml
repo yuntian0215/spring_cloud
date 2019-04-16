@@ -25,7 +25,8 @@
         <module>spring-rabbitmq</module>
         <module>spring-elasticsearch</module>
 		<module>spring-weixin</module>
-	</modules>
+        <module>spring-mongodb</module>
+    </modules>
 
 	<properties>
 		<java.version>1.8</java.version>
