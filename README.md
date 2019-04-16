@@ -26,3 +26,5 @@ spring cloud技术集合
 8,spring-elasticsearch集成独立的elasticsearch集群，只是简单的实现查询，其他条件查询继续...
 
 9,spring-weixin是针对微信公众号的开发
+
+10,spring-mongodb集成mongodb的常用方法
