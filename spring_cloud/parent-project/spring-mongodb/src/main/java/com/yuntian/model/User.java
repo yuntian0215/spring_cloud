@@ -1,5 +1,6 @@
 package com.yuntian.model;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
@@ -16,6 +17,11 @@ import java.io.Serializable;
 @Document(collection="t_user")
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
+    /**
+     * 加上@Id 标注在属性上，映射到collection的_id属性上mongodb自己维护此字段
+     * 不加的话就当着一个字段去创建了
+     */
+    @Id
     private Integer userId;
     private String userName;
     private String age;
