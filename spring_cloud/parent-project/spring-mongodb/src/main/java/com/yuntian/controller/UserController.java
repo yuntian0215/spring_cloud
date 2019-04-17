@@ -69,4 +69,40 @@ public class UserController {
         Pageable page = new PageRequest(0,10);
         return userService.findByNameAndAgeRange("zhangsan", "18", page);
     }
+
+    /**
+     * -=-=-=-=-=-=-下面是使用mongoTemplate操作mongo-=-=-=-=-=-=-=-=-=-=
+     */
+    @RequestMapping("/saveTem")
+    public String saveTem(){
+        User user = new User();
+        user.setUserId(5);
+        user.setUserName("zhaoliu");
+        user.setAge("33");
+        userService.saveTem(user);
+
+        return "使用mongoTemplate操作mongo添加成功！";
+    }
+    @RequestMapping("/deleteTem")
+    public String deleteTem(){
+        userService.deleteTem("zhangsan");
+
+        return "使用mongoTemplate操作mongo删除成功！";
+    }
+    @RequestMapping("/updateTem")
+    public String updateTem(){
+        User user = new User();
+        user.setUserId(5);
+        user.setUserName("zhaoliu");
+        user.setAge("33");
+        userService.updateTem(user);
+
+        return "使用mongoTemplate操作mongo修改成功！";
+    }
+    @RequestMapping("/queryTem")
+    public List<User> queryTem(){
+        List<User> list = userService.queryTem();
+
+        return list;
+    }
 }

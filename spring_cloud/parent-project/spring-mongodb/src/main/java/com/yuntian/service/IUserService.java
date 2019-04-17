@@ -25,4 +25,12 @@ public interface IUserService {
     public List<User> findUserByName(String name);
 
     public Page<User> findByNameAndAgeRange(String name, String age, Pageable page);
+
+    public int saveTem(User user);
+
+    public int deleteTem(String name);
+
+    public int updateTem(User user);
+
+    public List<User> queryTem();
 }
