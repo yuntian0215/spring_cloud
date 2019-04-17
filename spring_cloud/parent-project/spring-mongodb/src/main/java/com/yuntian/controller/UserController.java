@@ -2,6 +2,9 @@ package com.yuntian.controller;
 
 import com.yuntian.model.User;
 import com.yuntian.service.IUserService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -54,5 +57,16 @@ public class UserController {
     @RequestMapping("/findUserByName")
     public List<User> findUserByName(){
         return userService.findUserByName("zhang");
+    }
+    /**
+     * <p>分页查询</p>
+     * @return
+     * 2019年4月17日上午9:11:29
+     * @author lvjie
+     */
+    @RequestMapping("/findPage")
+    public Page<User> findPage(){
+        Pageable page = new PageRequest(0,10);
+        return userService.findByNameAndAgeRange("zhangsan", "18", page);
     }
 }

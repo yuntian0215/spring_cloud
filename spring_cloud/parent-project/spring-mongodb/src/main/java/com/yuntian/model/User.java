@@ -1,5 +1,7 @@
 package com.yuntian.model;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.io.Serializable;
 
 /**
@@ -7,7 +9,11 @@ import java.io.Serializable;
  * 2019/4/16/0016 16:42
  *
  * @author lvjie
- */
+ *
+ *@Document（collection = "xxx"）实体类将会映射到数据库中名为xxx的collection中
+ *	此注解可不写，不写的话会在数据库中创建以类名小写为名的collection
+*/
+@Document(collection="t_user")
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
     private Integer userId;

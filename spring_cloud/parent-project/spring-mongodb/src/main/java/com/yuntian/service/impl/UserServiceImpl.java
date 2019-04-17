@@ -3,6 +3,8 @@ package com.yuntian.service.impl;
 import com.yuntian.model.User;
 import com.yuntian.repository.UserRepository;
 import com.yuntian.service.IUserService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -31,5 +33,10 @@ public class UserServiceImpl implements IUserService {
     @Override
     public List<User> findUserByName(String name){
         return userRepository.findByUserNameLike(name);
+    }
+
+    @Override
+    public Page<User> findByNameAndAgeRange(String name, String age, Pageable page) {
+        return userRepository.findByNameAndAgeRange(name, age, page);
     }
 }

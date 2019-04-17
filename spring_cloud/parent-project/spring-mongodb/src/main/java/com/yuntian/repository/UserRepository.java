@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Package: com.yuntian.repository
  * <p>
- * Description： 自定义数据操作层
+ * Description： 自定义数据操作层，需要符合 SpringData 方法定义规范
  * <p>
  * Author: lvjie
  * <p>
@@ -68,12 +68,12 @@ public interface UserRepository extends MongoRepository<User, Integer> {
     List<User> findByUserNameNot(String name);
 
 
-    @Query("{\"username\":{\"$regex\":?0}, \"age\": ?1}")
-    Page<User> findByNameAndAgeRange(String name, int age, Pageable page);
+    @Query("{\"userName\":{\"$regex\":?0}, \"age\": ?1}")
+    Page<User> findByNameAndAgeRange(String name, String age, Pageable page);
 
-    @Query(value="{\"username\":{\"$regex\":?0},\"age\":{\"$gte\":?1,\"$lte\": ?2}}")
+    @Query(value="{\"userName\":{\"$regex\":?0},\"age\":{\"$gte\":?1,\"$lte\": ?2}}")
     Page<User> findByNameAndAgeRange2(String name,int ageFrom,int ageTo,Pageable page);
 
-    @Query(value="{\"username\":{\"$regex\":?0},\"age\":{\"$gte\":?1,\"$lte\": ?2}}",fields="{\"username\" : 1, \"age\" : 1}")
+    @Query(value="{\"userName\":{\"$regex\":?0},\"age\":{\"$gte\":?1,\"$lte\": ?2}}",fields="{\"username\" : 1, \"age\" : 1}")
     Page<User> findByNameAndAgeRange3(String name,int ageFrom,int ageTo,Pageable page);
 }
