@@ -26,6 +26,7 @@
         <module>spring-elasticsearch</module>
 		<module>spring-weixin</module>
         <module>spring-mongodb</module>
+        <module>spring-kafka</module>
     </modules>
 
 	<properties>
