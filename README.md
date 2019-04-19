@@ -28,3 +28,5 @@ spring cloud技术集合
 9,spring-weixin是针对微信公众号的开发
 
 10,spring-mongodb集成mongodb的常用方法
+
+11,spring-kafka集成了kafka，注意配置文件hosts名称需要和服务器hosts名称对应上
