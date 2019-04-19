@@ -1,6 +1,7 @@
 package com.yuntian.service.impl;
 
 import com.yuntian.model.User;
+import com.yuntian.repository.MongoUtils1;
 import com.yuntian.repository.UserRepository;
 import com.yuntian.service.IUserService;
 import org.springframework.data.domain.Page;
@@ -28,6 +29,9 @@ public class UserServiceImpl implements IUserService {
     //第二种：使用SpringBoot自带的MongoTemplate API实现对数据库的CRUD操作
     @Resource
     private MongoTemplate mongoTemplate;
+    //把基本的MongoTemplate实现CURD操作做好了封装，直接继承调用就行
+    @Resource
+    private MongoUtils1 userDao;
 
     @Override
     public int save(User user) {
