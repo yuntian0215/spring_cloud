@@ -17,8 +17,8 @@ import com.alibaba.fastjson.JSONObject;
  */
 @Component
 public class UserConsumer {
-	//测试接收对象
-	@KafkaListener(topics={"ScrapyLogTopic"})
+	//测试接收对象，从配置文件中获取需要监控的topic数组
+	@KafkaListener(topics="#{'${kafka.crawler.topic}'.split(',')}")
 	public void listenUser(ConsumerRecord<?, ?> record){
 		Optional<?> kafkaMessage = Optional.ofNullable(record.value());
 		if (kafkaMessage.isPresent()) {

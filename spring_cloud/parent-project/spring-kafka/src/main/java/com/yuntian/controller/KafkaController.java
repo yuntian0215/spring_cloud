@@ -1,6 +1,8 @@
 package com.yuntian.controller;
 
+import com.yuntian.model.User;
 import com.yuntian.producer.FirstProducer;
+import com.yuntian.producer.UserProducer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,23 +22,34 @@ import java.time.format.DateTimeFormatter;
 public class KafkaController {
     @Resource
     private FirstProducer firstProducer;
+    @Resource
+    private UserProducer userProducer;
     @RequestMapping("/send")
     public String send(String msg){
         firstProducer.send(msg);
         return "发送消息成功";
     }
-    @Autowired
-    private KafkaTemplate kafkaTemplate;
-
-    @RequestMapping("/kafkaSendMessage")
-    public void sendTest() throws InterruptedException {
-        System.out.println("send send data");
-        for (int i =0;i<1000;i++) {
-            System.out.println("send mock data to kafka  :"+i);
-
-            kafkaTemplate.send("ScrapyLogTopic",
-                    "mock data i:  "+i +"  "+ LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS")));
-            Thread.sleep(200);
+    /**
+     * <p>测试发送对象信息</p>
+     * @return
+     * 2019年4月22日上午9:35:17
+     * @author lvjie
+     */
+    @RequestMapping("/sendUser")
+    public String sendUser(){
+        for(int i=0;i<100;i++){
+            User user = new User();
+            user.setId(i+1);
+            user.setName("测试对象");
+            user.setAddress("测试地址");
+            userProducer.sendUser(user);
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
+        return "发送对象成功！";
     }
 }
