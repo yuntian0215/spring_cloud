@@ -26,9 +26,12 @@ public class SendMsgTimer {
 	/**
 	 * cron = "0 0/1 * * * *" 每分钟执行一次
 	 * cron = "0 0 0/1 * * *" 每小时执行一次
-	 * cron = "0 10 1 * * *" 每天1点10份执行
+	 * cron = "0 10 1 * * *" 每天1点10分执行
+	 * cron = "0 10 1 * * 1" 每周日1点10分执行 ，可以用数字1-7表示（1 ＝ 星期日）或用字符口串“SUN, MON, TUE, WED, THU, FRI and SAT”表示
+	 * cron = "0 10 3 1 * *" 每月1号3点10分执行
 	 */
-	@Scheduled(cron = "0 0/2 * * * *")
+	//@Scheduled(cron = "0 0/2 * * * *")
+	@Scheduled(cron = "${week.cron}")
 	public void toSend(){
 		//接下来给这个客户发送模板消息
 		//先给模板中设置参数
